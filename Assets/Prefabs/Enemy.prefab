@@ -99,12 +99,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   watusiZone: {x: -9.87, y: 0.07, z: 4.11}
   baseSpeed: 5
-  sprintSpeed: 7.5
+  sprintSpeed: 7.3
   attackingSpeed: 3.8
-  sprintChances: 13
+  sprintChances: 8
   playerAggroChances: 2
   minWaitTime: 0.01
   maxWaitTime: 3
+  roar: {fileID: 8300000, guid: 5eba682c31231ed4b97edaae5b71a30b, type: 3}
+  farawayStep: {fileID: 8300000, guid: 820f9d4dd32d8d746b3e95951ff14499, type: 3}
+  step: {fileID: 0}
+  alert: {fileID: 8300000, guid: 2273fac7632c9444db31f5b0d4e91d8d, type: 3}
 --- !u!1 &3708647546634574719
 GameObject:
   m_ObjectHideFlags: 0

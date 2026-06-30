@@ -56,12 +56,12 @@ public class AudioManager : MonoBehaviour
         ambientSource.Stop();
     }
 
-    public void PlaySFX(AudioClip _sfx, Vector3 _position, float pitch = 1f)
+    public void PlaySFX(AudioClip _sfx, Vector3 _position, float volume = 1f)
     {
         GameObject SFXClone = Instantiate(SFXPrefab, _position, Quaternion.identity);
         SFXClone.GetComponent<AudioSource>().clip = _sfx;
         SFXClone.GetComponent <AudioSource>().volume = sfxVolume;
-        SFXClone.GetComponent<AudioSource>().pitch = pitch;
+        SFXClone.GetComponent<AudioSource>().volume = volume;
         SFXClone.GetComponent<AudioSource>().Play();
         Destroy(SFXClone, _sfx.length);
     }

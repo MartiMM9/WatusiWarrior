@@ -32,12 +32,23 @@ public class EnemyController : MonoBehaviour
     private bool isWalking;
     private Vector3 objective;
     private NavMeshAgent agent;
-
     private EnemyCircle enemyCircle;
+
+    private AudioManager audioManager;
+    [Header("SFX")]
+    [SerializeField]
+    private AudioClip roar;
+    [SerializeField]
+    private AudioClip farawayStep;
+    [SerializeField]
+    private AudioClip step1, step2, step3;
+    [SerializeField]
+    private AudioClip alert;
 
     void Awake()
     {
         enemyCircle = GameObject.Find("Player/Circle").GetComponent<EnemyCircle>();
+        audioManager = Object.FindFirstObjectByType<AudioManager>();
     }
 
     void Start()
@@ -90,6 +101,7 @@ public class EnemyController : MonoBehaviour
 
     private void Sprint()
     {
+        audioManager.PlaySFX(roar, transform.position, Random.Range(0.5f, 0.7f));
         agent.speed = sprintSpeed;
         isAttacking = true;
         isWalking = true;
@@ -106,12 +118,29 @@ public class EnemyController : MonoBehaviour
             if (randChanceToAggroPlayer == 0)
             {
                 Debug.Log("Hijoputa te rajo");
+                audioManager.PlaySFX(alert, transform.position, Random.Range(0.01f, 0.03f));
             }
             else
             {
                 agent.speed += 0.8f; //un pequeño boost en velocidad
                 Debug.Log("A por las vacas");
             }
+        }
+    }
+
+    public void Step(int type)
+    {
+        switch (type)
+        {
+            case 1:
+                audioManager.PlaySFX(step1, transform.position, Random.Range(0.9f, 1.1f));
+                break;
+            case 2:
+                audioManager.PlaySFX(step2, transform.position, Random.Range(0.9f, 1.1f));
+                break;
+            case 3:
+                audioManager.PlaySFX(step3, transform.position, Random.Range(0.9f, 1.1f));
+                break;
         }
     }
 }
