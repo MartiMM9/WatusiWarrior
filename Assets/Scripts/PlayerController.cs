@@ -24,8 +24,8 @@ public class PlayerController : MonoBehaviour
     {
         //Asignar variables
         playerInput = GetComponent<PlayerInput>();
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        /*Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;*/
         rb = GetComponent<Rigidbody>();
 
         //Temporal
