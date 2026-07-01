@@ -4,6 +4,8 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
+    EnemyVisual enemyVisual;
+
     [SerializeField]
     private Vector3 watusiZone;
 
@@ -42,10 +44,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private AudioClip roar;
     [SerializeField]
-    private AudioClip farawayStep;
-    [SerializeField]
-    private AudioClip step1, step2, step3;
-    [SerializeField]
     private AudioClip alert;
 
     void Awake()
@@ -58,6 +56,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         agent = GetComponentInParent<NavMeshAgent>();
+        enemyVisual = GetComponentInChildren<EnemyVisual>();
         StartWalking();
     }
 
@@ -92,7 +91,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator IdleCoroutine()
     {
         isWalking = false;
-        //animacion de caminar = isWalking
+        enemyVisual.SetWalkingAnimation(isWalking);
         float randomWaitTime = Random.Range(minWaitTime, maxWaitTime);
         yield return new WaitForSeconds(randomWaitTime);
         int randOption = Random.Range(0, sprintChances);
@@ -111,18 +110,18 @@ public class EnemyController : MonoBehaviour
         agent.speed = baseSpeed;
         isWalking = true;
         objective = enemyCircle.moveTowards(transform.position);
-        //animacion de caminar = isWalking
+        enemyVisual.SetWalkingAnimation(isWalking);
         agent.destination = objective;
     }
 
     private void Sprint()
     {
-        audioManager.PlaySFX(roar, transform.position, Random.Range(0.5f, 0.7f));
+        audioManager.PlaySFX(roar, transform.position, Random.Range(0.8f, 1f));
         agent.speed = sprintSpeed;
         isAttacking = true;
         isWalking = true;
         objective = watusiZone;
-        //animacion de caminar = isWalking
+        enemyVisual.SetWalkingAnimation(isWalking);
         agent.destination = objective;
     }
 
@@ -134,7 +133,7 @@ public class EnemyController : MonoBehaviour
             if (randChanceToAggroPlayer == 0)
             {
                 Debug.Log("Hijoputa te rajo");
-                audioManager.PlaySFX(alert, transform.position, Random.Range(0.01f, 0.03f));
+                audioManager.PlaySFX(alert, transform.position, Random.Range(0.55f, 0.8f));
                 toPlayer = true;
                 agent.speed = attackingSpeed;
                 agent.stoppingDistance = 6.5f;
@@ -143,23 +142,8 @@ public class EnemyController : MonoBehaviour
             {
                 agent.speed += 1.1f; //un pequeño boost en velocidad
                 Debug.Log("A por las vacas");
+                Sprint();
             }
-        }
-    }
-
-    public void Step(int type)
-    {
-        switch (type)
-        {
-            case 1:
-                audioManager.PlaySFX(step1, transform.position, Random.Range(0.9f, 1.1f));
-                break;
-            case 2:
-                audioManager.PlaySFX(step2, transform.position, Random.Range(0.9f, 1.1f));
-                break;
-            case 3:
-                audioManager.PlaySFX(step3, transform.position, Random.Range(0.9f, 1.1f));
-                break;
         }
     }
 }
