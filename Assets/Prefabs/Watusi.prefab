@@ -76,6 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WatusiController
   maxPatrolPoint: {x: -4.91, y: 9.15}
   minPatrolPoint: {x: -14.888, y: -0.89}
+  materialName: Horn Shard
+  materialAmount: 10
 --- !u!195 &3247788982365263141
 NavMeshAgent:
   m_ObjectHideFlags: 0

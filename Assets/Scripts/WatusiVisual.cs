@@ -21,6 +21,7 @@ public class WatusiVisual : MonoBehaviour
     {
         //El Sprite siempre mira hacia el player
         transform.LookAt(player.position);
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, transform.localEulerAngles.z);
         //Se flipea el sprite dependiendo de si anda hacia la derecha o la izquierda respecto al player
         UpdateFacingDirection();
     }
