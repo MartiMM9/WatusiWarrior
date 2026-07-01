@@ -47,4 +47,9 @@ public class WatusiVisual : MonoBehaviour
     {
         animator.SetBool("isWalking", isWalking);
     }
+
+    public void SetHornlessAnimation(bool isHornless)
+    {
+        animator.SetBool("isHornless", isHornless);
+    }
 }

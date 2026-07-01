@@ -12,11 +12,15 @@ public class WatusiController : MonoBehaviour, IInteractable
     [SerializeField] private string materialName;
     [SerializeField] private int materialAmount;
     private bool isWalking;
+    private bool hasHorns;
+    private int daysWithoutHorns;
+    [SerializeField] private int daysToRegrowHorns;
 
     void Start()
     {
         watusiVisual = GetComponentInChildren<WatusiVisual>();
         agent = GetComponent<NavMeshAgent>();
+        hasHorns = true;
         StartWalking();
     }
 
@@ -54,7 +58,12 @@ public class WatusiController : MonoBehaviour, IInteractable
         PlayerInventory playerInventory = FindAnyObjectByType<PlayerInventory>();
         if(playerInventory != null)
         {
-            playerInventory.AddMaterial(materialName, materialAmount);
+            if (hasHorns)
+            {
+                playerInventory.AddMaterial(materialName, materialAmount);
+                watusiVisual.SetHornlessAnimation(true);
+                hasHorns = false;
+            }
         }
     }
 }
