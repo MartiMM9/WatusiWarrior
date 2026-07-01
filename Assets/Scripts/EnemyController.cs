@@ -26,9 +26,12 @@ public class EnemyController : MonoBehaviour
     private float minWaitTime;
     [SerializeField]
     private float maxWaitTime;
+    [SerializeField]
+    private bool toPlayer = false;
 
     private bool isAttacking = false;
 
+    private GameObject player;
     private bool isWalking;
     private Vector3 objective;
     private NavMeshAgent agent;
@@ -49,6 +52,7 @@ public class EnemyController : MonoBehaviour
     {
         enemyCircle = GameObject.Find("Player/Circle").GetComponent<EnemyCircle>();
         audioManager = Object.FindFirstObjectByType<AudioManager>();
+        player = GameObject.Find("Player");
     }
 
     void Start()
@@ -64,11 +68,23 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        if (toPlayer)
+        {
+            objective = player.transform.position;
+            agent.destination = objective;
+        }
+
+        if (isAttacking)
+        {
+            agent.stoppingDistance = 6.5f;
+        }
+
         if (transform.position == agent.destination)
         {
             if (!isAttacking)
             {
                 StartCoroutine(IdleCoroutine());
+                agent.stoppingDistance = 0;
             }
         }
     }
@@ -119,10 +135,13 @@ public class EnemyController : MonoBehaviour
             {
                 Debug.Log("Hijoputa te rajo");
                 audioManager.PlaySFX(alert, transform.position, Random.Range(0.01f, 0.03f));
+                toPlayer = true;
+                agent.speed = attackingSpeed;
+                agent.stoppingDistance = 6.5f;
             }
             else
             {
-                agent.speed += 0.8f; //un pequeño boost en velocidad
+                agent.speed += 1.1f; //un pequeño boost en velocidad
                 Debug.Log("A por las vacas");
             }
         }

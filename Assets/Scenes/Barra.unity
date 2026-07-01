@@ -352,11 +352,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   health: 0
   maxHealth: 0
-  maxBullets: 1000
-  bullets: 0
   bulletSpeed: 100
   moveSpeed: 10
   lookSensitivity: 0.5
+  interactDistance: 0
   cam: {fileID: 450278352}
   bullet: {fileID: 7455748891841500666, guid: ba7855c206e64c343838b86ff8c58465, type: 3}
 --- !u!136 &240628942
@@ -2851,6 +2850,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WatusiController
   maxPatrolPoint: {x: -4.91, y: 9.15}
   minPatrolPoint: {x: -14.888, y: -0.89}
+  materialName: 
+  materialAmount: 0
 --- !u!1 &4812913721798254667
 GameObject:
   m_ObjectHideFlags: 0

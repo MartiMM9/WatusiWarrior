@@ -84,7 +84,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &-6547406995191177131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,9 +105,12 @@ MonoBehaviour:
   playerAggroChances: 2
   minWaitTime: 0.01
   maxWaitTime: 3
+  toPlayer: 0
   roar: {fileID: 8300000, guid: 5eba682c31231ed4b97edaae5b71a30b, type: 3}
   farawayStep: {fileID: 8300000, guid: 820f9d4dd32d8d746b3e95951ff14499, type: 3}
-  step: {fileID: 0}
+  step1: {fileID: 0}
+  step2: {fileID: 0}
+  step3: {fileID: 0}
   alert: {fileID: 8300000, guid: 2273fac7632c9444db31f5b0d4e91d8d, type: 3}
 --- !u!1 &3708647546634574719
 GameObject:

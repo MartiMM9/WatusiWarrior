@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        Timer();
+        //Timer();
     }
 
     public void ChangeTime()
@@ -142,7 +142,7 @@ public class LevelManager : MonoBehaviour
         Instantiate(enemyRandom, spawnPosition, spawnPointRandom.rotation);
         currentEnemies++;
     }*/
-
+    /*
     public void Timer()
     {
         currentTime -= Time.deltaTime;
@@ -157,8 +157,8 @@ public class LevelManager : MonoBehaviour
         {
             GameOver();
         }
-    }
-
+    }*/
+    /*
     public void Win()
     {
         winPanel.SetActive(true);
@@ -176,7 +176,7 @@ public class LevelManager : MonoBehaviour
 
         AudioManager.instance.StopMusic();
         AudioManager.instance.PlayMusic(loseMusicBG);
-    }
+    }*/
 
     /*void ApplyDifficulty()
     {
