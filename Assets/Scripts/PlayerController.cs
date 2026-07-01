@@ -5,16 +5,16 @@ public class PlayerController : MonoBehaviour
 {
     PlayerInput playerInput;
     Rigidbody rb;
+    PlayerInventory inventory;
     float verticalLookRotation;
 
     [Header("Stats")]
     public float health;
     public float maxHealth;
-    public float maxBullets;
-    public float bullets;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float lookSensitivity;
+    [SerializeField] private float interactDistance;
 
     [Header("ExternalObjects")]
     [SerializeField] private GameObject cam;
@@ -24,12 +24,10 @@ public class PlayerController : MonoBehaviour
     {
         //Asignar variables
         playerInput = GetComponent<PlayerInput>();
+        inventory = GetComponent<PlayerInventory>();
         /*Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;*/
         rb = GetComponent<Rigidbody>();
-
-        //Temporal
-        bullets = maxBullets;
     }
 
     void Update()
@@ -43,12 +41,15 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         //Movimiento de la camara
-        Vector2 cameraInput = playerInput.actions["Look"].ReadValue<Vector2>();
-        transform.eulerAngles += new Vector3(0f, cameraInput.x * lookSensitivity, 0f);
+        if(Time.timeScale > 0)
+        {
+            Vector2 cameraInput = playerInput.actions["Look"].ReadValue<Vector2>();
+            transform.eulerAngles += new Vector3(0f, cameraInput.x * lookSensitivity, 0f);
 
-        verticalLookRotation -= cameraInput.y * lookSensitivity;
-        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
-        cam.transform.localEulerAngles = new Vector3(verticalLookRotation, 0f, 0f);
+            verticalLookRotation -= cameraInput.y * lookSensitivity;
+            verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+            cam.transform.localEulerAngles = new Vector3(verticalLookRotation, 0f, 0f);
+        }
     }
 
     //Input de disparo
@@ -56,7 +57,10 @@ public class PlayerController : MonoBehaviour
     {
         if(context.started)
         {
-            Shoot();
+            if(Time.timeScale > 0)
+            {
+                Shoot();
+            }
         }
     }
 
@@ -64,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private void Shoot()
     {
         //Disparar solo si hay balas
-        if (bullets > 0)
+        if (inventory.bullets > 0)
         {
             //Crea un rayo desde el centro de la pantalla
             Ray ray = Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f));
@@ -86,10 +90,34 @@ public class PlayerController : MonoBehaviour
             }
 
             //Resta balas al disparar y evita que las balas sean negativas
-            bullets--;
-            if(bullets <= 0)
+            inventory.bullets--;
+            if(inventory.bullets <= 0)
             {
-                bullets = 0;
+                inventory.bullets = 0;
+            }
+        }
+    }
+
+    //Input de interaccion
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            //Raycast para detectar interactuables
+            Ray ray = Camera.main.ViewportPointToRay(new Vector2(0.5f, 0.5f));
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, interactDistance))
+            {
+                //Comprueba si el objeto colisionado esta en la layer 6 (Interactable)
+                if (hit.collider.gameObject.layer == 6)
+                {
+                    //Obtiene la interfaz IInteractable del objeto colisionado y llama a su metodo Interact()
+                    IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+                    if(interactable != null)
+                    {
+                        interactable.Interact();
+                    }
+                }
             }
         }
     }
