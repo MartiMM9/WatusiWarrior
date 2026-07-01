@@ -101,17 +101,13 @@ MonoBehaviour:
   baseSpeed: 5
   sprintSpeed: 7.3
   attackingSpeed: 3.8
-  sprintChances: 8
+  sprintChances: 7
   playerAggroChances: 2
   minWaitTime: 0.01
   maxWaitTime: 3
   toPlayer: 0
-  roar: {fileID: 8300000, guid: 5eba682c31231ed4b97edaae5b71a30b, type: 3}
-  farawayStep: {fileID: 8300000, guid: 820f9d4dd32d8d746b3e95951ff14499, type: 3}
-  step1: {fileID: 0}
-  step2: {fileID: 0}
-  step3: {fileID: 0}
-  alert: {fileID: 8300000, guid: 2273fac7632c9444db31f5b0d4e91d8d, type: 3}
+  roar: {fileID: 8300000, guid: 7363860330bf97a4d91e286d9db7c5d8, type: 3}
+  alert: {fileID: 8300000, guid: 0abcc52c9bc262e4ca39223bd311cb85, type: 3}
 --- !u!1 &3708647546634574719
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,8 +119,9 @@ GameObject:
   - component: {fileID: 2058069167868817707}
   - component: {fileID: 531924739105208779}
   - component: {fileID: 48784549293240349}
+  - component: {fileID: 2490028572752974226}
   m_Layer: 6
-  m_Name: WatusiSprite
+  m_Name: EnemySprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,6 +222,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2490028572752974226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3708647546634574719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2225ccef8648ff46be0bca4e0e5e215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StepsEvents
+  farawayStep1: {fileID: 8300000, guid: 4969e6e8e328cd0439cb58e289d8080c, type: 3}
+  farawayStep2: {fileID: 8300000, guid: 623bb7d39dc114247b20b4bd6d0db7e0, type: 3}
+  farawayStep3: {fileID: 8300000, guid: 6a7dcd56f29a2ad4b82335be4d37bda1, type: 3}
 --- !u!1 &6493865113894696115
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,10 +246,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2422945424791838522}
-  - component: {fileID: 7416619396573387593}
   - component: {fileID: 8522668221828252074}
+  - component: {fileID: 7678843383552711364}
   m_Layer: 6
-  m_Name: WatusiVisual
+  m_Name: EnemyVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,19 +271,6 @@ Transform:
   - {fileID: 2058069167868817707}
   m_Father: {fileID: 763395174203799649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7416619396573387593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6493865113894696115}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 382373eacd412f44d93505ddd9ad3b09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WatusiVisual
-  watusiSprite: {fileID: 2058069167868817707}
 --- !u!65 &8522668221828252074
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -293,6 +292,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6246367, y: 2.1514993, z: 0.4884935}
   m_Center: {x: 0.008964777, y: 1.0863652, z: 0.0042631924}
+--- !u!114 &7678843383552711364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6493865113894696115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e0d0f7bc58c354e9995e36796644d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisual
+  enemySprite: {fileID: 2058069167868817707}
 --- !u!1 &7468506947383164807
 GameObject:
   m_ObjectHideFlags: 0
